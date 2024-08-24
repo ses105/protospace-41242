@@ -3,9 +3,10 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @prototype = @comment.prototype
     if @comment.save
-      redirect_to prototype_path(@prototype)
+      #  redirect_to prototype_path(@prototype)
+       render json: @comment
     else
-      @comments = Comment.includes(:user)
+      @comments = @prototype.comments.includes(:user)
       render "prototypes/show", status: :unprocessable_entity
     end
   end
